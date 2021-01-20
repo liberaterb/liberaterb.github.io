@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>INDEX</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.15.0/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/prism.css">
     <style>
         .el-calendar-table .el-calendar-day {
             padding: 0;
@@ -32,27 +34,37 @@
                 </template>
             </el-calendar>
             <el-dialog title="ESC - CLOSE" :visible.sync="dialogVisible" width="50%" top="50px">
-                <div v-html="compiledMarkdown" class="markdown"></div>
+                <!-- <div v-html="compiledMarkdown" class="markdown"></div> -->
+                <vue-markdown class="result-html full-height"
+                    :watches="['show','html','breaks','linkify','emoji','typographer','toc']" :source="source"
+                    :show="true" :html="true" :breaks="true" :linkify="true" :emoji="true"
+                    :typographer="true" :toc="true" @rendered="allRight" @toc-rendered="tocAllRight"
+                    toc-id="toc"></vue-markdown>
             </el-dialog>
         </div>
     </div>
 
     <!-- <script src="./components/clock.js"></script> -->
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.15.0/lib/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.3/dayjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked@1.2.7/lib/marked.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dompurify@2.2.6/dist/purify.min.js"></script>
+    <script src="./js/vue@2.6.12.js"></script>
+    <script src="./js/element/index.js"></script>
+    <script src="./js/dayjs.min.js"></script>
+    <script src="./js/marked.js"></script>
+    <script src="./js/vue-markdown.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/prism.js"></script>
+    <script src="./js/purify.min.js"></script>
     <script src="2021-01.js"></script>
     <script>
+        Vue.use(VueMarkdown);
         let app = new Vue({
             el: '#app',
             data() {
                 return {
                     todayLabel: '',
                     input: '',
-                    dialogVisible: false
+                    dialogVisible: false,
+                    source: ""
                 }
             },
             created() {
@@ -63,16 +75,22 @@
             },
             methods: {
                 handleSelectDate(data) {
-                    this.input = window['text' + dayjs(data.day).format('YYYYMMDD')] ?? '# NULL'
+                    this.source = window['text' + dayjs(data.day).format('YYYYMMDD')] ?? '# NULL'
                     this.dialogVisible = true
                 },
                 hasText(time) {
                     return window['text' + time] !== undefined
+                },
+                allRight: function (htmlStr) {
+                    // console.log("markdown is parsed !");
+                },
+                tocAllRight: function (tocHtmlStr) {
+                    // console.log("toc is parsed :", tocHtmlStr);
                 }
             },
             computed: {
                 compiledMarkdown() {
-                    return DOMPurify.sanitize(marked(this.input));
+                    // return DOMPurify.sanitize(marked(this.input));
                 }
             }
         })
