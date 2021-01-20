@@ -43,6 +43,7 @@
     <script src="https://cdn.jsdelivr.net/npm/element-ui@2.15.0/lib/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.3/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked@1.2.7/lib/marked.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@2.2.6/dist/purify.min.js"></script>
     <script src="2021-01.js"></script>
     <script>
         let app = new Vue({
@@ -71,12 +72,24 @@
             },
             computed: {
                 compiledMarkdown() {
-                    return marked(this.input);
+                    return DOMPurify.sanitize(marked(this.input));
                 }
             }
         })
     </script>
     <style>
+        /* @font-face {
+            font-family: "JBM";
+            src: url('./JetBrainsMono-Medium.ttf');
+        } */
+
+        pre {
+            padding: 10px;
+            background-color: #e9e8e8;
+            color: #000000;
+            /* font-family: "consolas"; */
+        }
+
         .wrapper {
             margin: 50px 150px;
         }
@@ -85,6 +98,7 @@
             height: 700px;
             border: 3px solid #ebeef5;
             padding: 20px;
+            overflow: auto;
         }
 
         .markdown li {
