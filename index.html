@@ -9,6 +9,7 @@
         .el-calendar-table .el-calendar-day {
             padding: 0;
         }
+
         .el-dialog__headerbtn {
             font-size: 30px;
             top: 15px;
@@ -27,7 +28,7 @@
             </template>
         </el-calendar>
         <el-dialog :visible.sync="dialogVisible" width="50%" top="50px">
-            <div v-html="compiledMarkdown" style="height: 700px;border: 3px solid #ebeef5;padding: 20px;"></div>
+            <div v-html="compiledMarkdown" class="markdown"></div>
         </el-dialog>
     </div>
     <!-- <script src="./components/clock.js"></script> -->
@@ -36,21 +37,14 @@
     <script src="https://cdn.jsdelivr.net/npm/element-ui@2.15.0/lib/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.3/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked@1.2.7/lib/marked.js"></script>
+    <script src="2021-01.js"></script>
     <script>
         let app = new Vue({
             el: '#app',
             data() {
                 return {
-                    value: new Date(),
                     input: '',
-                    dialogVisible: false,
-                    text: {
-                        '2021':{
-                            '01':{
-                                '20':'# 234'
-                            }
-                        }
-                    }
+                    dialogVisible: false
                 }
             },
             created() {
@@ -60,15 +54,9 @@
             },
             methods: {
                 handleSelectDate(data) {
-                    const year = dayjs(data.day).format('YYYY')
-                    const month = dayjs(data.day).format('MM')
-                    const day = dayjs(data.day).format('DD')
-                    this.input = this.text[year][month][day] ?? '# NULL'
+                    this.input = window['text' + dayjs(data.day).format('YYYYMMDD')] ?? '# NULL'
                     this.dialogVisible = true
                 }
-            },
-            components: {
-
             },
             computed: {
                 compiledMarkdown() {
@@ -78,9 +66,15 @@
         })
     </script>
     <style>
-        .wrapper{
+        .wrapper {
             margin: 50px 150px;
             border: 5px solid #ebeef5;
+        }
+
+        .markdown {
+            height: 700px;
+            border: 3px solid #ebeef5;
+            padding: 20px;
         }
     </style>
 </body>
