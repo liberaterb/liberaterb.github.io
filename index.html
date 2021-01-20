@@ -19,18 +19,22 @@
 
 <body>
     <div id="app" class="wrapper">
-        <!-- <clock></clock> -->
-        <el-calendar>
-            <template slot="dateCell" slot-scope="{date, data}">
-                <div @click="handleSelectDate(data)" style="height: 100%;width: 100%;">
-                    {{ dayjs(date).format('DD') }}
-                </div>
-            </template>
-        </el-calendar>
-        <el-dialog :visible.sync="dialogVisible" width="50%" top="50px">
-            <div v-html="compiledMarkdown" class="markdown"></div>
-        </el-dialog>
+        <h2>{{ 'TODAY '+dayjs().format('YYYY-MM-DD') }}</h2>
+        <div style="border: 5px solid #ebeef5;">
+            <!-- <clock></clock> -->
+            <el-calendar>
+                <template slot="dateCell" slot-scope="{date, data}">
+                    <div @click="handleSelectDate(data)" style="height: 100%;width: 100%;">
+                        {{ dayjs(date).format('DD') }}
+                    </div>
+                </template>
+            </el-calendar>
+            <el-dialog :visible.sync="dialogVisible" width="50%" top="50px">
+                <div v-html="compiledMarkdown" class="markdown"></div>
+            </el-dialog>
+        </div>
     </div>
+
     <!-- <script src="./components/clock.js"></script> -->
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
@@ -68,13 +72,16 @@
     <style>
         .wrapper {
             margin: 50px 150px;
-            border: 5px solid #ebeef5;
         }
 
         .markdown {
             height: 700px;
             border: 3px solid #ebeef5;
             padding: 20px;
+        }
+
+        .markdown li {
+            font-size: 18px;
         }
     </style>
 </body>
