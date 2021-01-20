@@ -9,29 +9,25 @@
         .el-calendar-table .el-calendar-day {
             padding: 0;
         }
+        .el-dialog__headerbtn {
+            font-size: 30px;
+            top: 15px;
+        }
     </style>
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="wrapper">
         <!-- <clock></clock> -->
-        <!-- <el-calendar v-model="value">
-        <template v-slot:dateCell="{date,data}">
-                <p :class="data.isSelected ? 'is-selected' : ''">
-                    {{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : ''}}
-                </p>
-            </template>
-        </el-calendar> -->
-
         <el-calendar>
-            <!-- 这里使用的是 2.5 slot 语法，对于新项目请使用 2.6 slot 语法-->
             <template slot="dateCell" slot-scope="{date, data}">
-                <div @click="handleSelectDate(data)" style="height: 100%;width: 100%;">{{ dayjs(date).format('DD') }}
+                <div @click="handleSelectDate(data)" style="height: 100%;width: 100%;">
+                    {{ dayjs(date).format('DD') }}
                 </div>
             </template>
         </el-calendar>
-        <el-dialog title="content" :visible.sync="dialogVisible" width="70%">
-            <div v-html="compiledMarkdown"></div>
+        <el-dialog :visible.sync="dialogVisible" width="50%" top="50px">
+            <div v-html="compiledMarkdown" style="height: 700px;border: 3px solid #ebeef5;padding: 20px;"></div>
         </el-dialog>
     </div>
     <!-- <script src="./components/clock.js"></script> -->
@@ -49,7 +45,11 @@
                     input: '',
                     dialogVisible: false,
                     text: {
-                        '2021-01-06': '# 123'
+                        '2021':{
+                            '01':{
+                                '20':'# 123'
+                            }
+                        }
                     }
                 }
             },
@@ -60,7 +60,10 @@
             },
             methods: {
                 handleSelectDate(data) {
-                    this.input = this.text[data.day] ?? ''
+                    const year = dayjs(data.day).format('YYYY')
+                    const month = dayjs(data.day).format('MM')
+                    const day = dayjs(data.day).format('DD')
+                    this.input = this.text[year][month][day] ?? '# NULL'
                     this.dialogVisible = true
                 }
             },
@@ -74,6 +77,12 @@
             }
         })
     </script>
+    <style>
+        .wrapper{
+            margin: 50px 150px;
+            border: 5px solid #ebeef5;
+        }
+    </style>
 </body>
 
 </html>
