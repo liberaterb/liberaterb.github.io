@@ -24,7 +24,7 @@
             <!-- <clock></clock> -->
             <el-calendar>
                 <template slot="dateCell" slot-scope="{date, data}">
-                    <div @click="handleSelectDate(data)" style="height: 100%;width: 100%;">
+                    <div @click="handleSelectDate(data)" style="height: 100%;width: 100%;padding: 5px;">
                         <div :class="{'calendar-cell-day': true, 'has-text': hasText(dayjs(date).format('YYYYMMDD'))}"
                             v-text="dayjs(date).format('DD')">
                         </div>
@@ -95,7 +95,6 @@
             width: 20px;
             height: 20px;
             padding: 5px;
-            margin: 5px;
             line-height: 20px;
         }
 
