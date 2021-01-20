@@ -19,17 +19,19 @@
 
 <body>
     <div id="app" class="wrapper">
-        <h2>{{ 'TODAY '+dayjs().format('YYYY-MM-DD') }}</h2>
+        <h2 v-text="todayLabel"></h2>
         <div style="border: 5px solid #ebeef5;">
             <!-- <clock></clock> -->
             <el-calendar>
                 <template slot="dateCell" slot-scope="{date, data}">
                     <div @click="handleSelectDate(data)" style="height: 100%;width: 100%;">
-                        {{ dayjs(date).format('DD') }}
+                        <div :class="{'calendar-cell-day': true, 'has-text': hasText(dayjs(date).format('YYYYMMDD'))}"
+                            v-text="dayjs(date).format('DD')">
+                        </div>
                     </div>
                 </template>
             </el-calendar>
-            <el-dialog :visible.sync="dialogVisible" width="50%" top="50px">
+            <el-dialog title="ESC - CLOSE" :visible.sync="dialogVisible" width="50%" top="50px">
                 <div v-html="compiledMarkdown" class="markdown"></div>
             </el-dialog>
         </div>
@@ -47,11 +49,13 @@
             el: '#app',
             data() {
                 return {
+                    todayLabel: '',
                     input: '',
                     dialogVisible: false
                 }
             },
             created() {
+                this.todayLabel = 'TODAY ' + dayjs().format('YYYY-MM-DD')
             },
             mounted() {
 
@@ -60,6 +64,9 @@
                 handleSelectDate(data) {
                     this.input = window['text' + dayjs(data.day).format('YYYYMMDD')] ?? '# NULL'
                     this.dialogVisible = true
+                },
+                hasText(time) {
+                    return window['text' + time] !== undefined
                 }
             },
             computed: {
@@ -82,6 +89,18 @@
 
         .markdown li {
             font-size: 18px;
+        }
+
+        .calendar-cell-day {
+            width: 20px;
+            height: 20px;
+            padding: 5px;
+            margin: 5px;
+            line-height: 20px;
+        }
+
+        .has-text {
+            background-color: #57f1ff83;
         }
     </style>
 </body>
