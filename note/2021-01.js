@@ -100,3 +100,46 @@ var text20210121_01 =
 # 局部自定义指令
 
 `
+
+var text20210121_02 = 
+`
+
+* Vue会用 Object.defineProperty 将data中的所有属性转为getter/setter
+* 这些getter/setter使Vue能够追踪依赖，在属性被访问和修改时通知变更
+* 每个组件实例都对应一个 watcher 实例，它会在组件渲染的过程中把“接触”过的数据 property 记录为依赖。之后当依赖项的 setter 触发时，会通知 watcher，从而使它关联的组件重新渲染。
+
+> 对于已经创建的实例，Vue 不允许动态添加根级别的响应式 property。
+
+> 向data的嵌套对象添加响应式property
+* 可以使用 Vue.set(object, propertyName, value) 方法向嵌套对象添加响应式 property
+* this.$set(object, propertyName, value) 是 Vue.set的别名
+* 一次添加多个属性： this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 })
+
+> 对于数组
+对于数组
+Vue 不能检测以下数组的变动：
+
+当你利用索引直接设置一个数组项时，例如：vm.items[indexOfItem] = newValue
+当你修改数组的长度时，例如：vm.items.length = newLength
+举个例子：
+
+var vm = new Vue({
+  data: {
+    items: ['a', 'b', 'c']
+  }
+})
+vm.items[1] = 'x' // 不是响应性的
+vm.items.length = 2 // 不是响应性的
+为了解决第一类问题，以下两种方式都可以实现和 vm.items[indexOfItem] = newValue 相同的效果，同时也将在响应式系统内触发状态更新：
+
+// Vue.set
+Vue.set(vm.items, indexOfItem, newValue)
+// Array.prototype.splice
+vm.items.splice(indexOfItem, 1, newValue)
+你也可以使用 vm.$set 实例方法，该方法是全局方法 Vue.set 的一个别名：
+
+vm.$set(vm.items, indexOfItem, newValue)
+为了解决第二类问题，你可以使用 splice：
+
+vm.items.splice(newLength)
+`
