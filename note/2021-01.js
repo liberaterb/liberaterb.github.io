@@ -50,10 +50,53 @@ var text20210120_00 =
 
 var text20210121_00 = 
 `
-# 123
+# 混入 (mixin)
+
+~~~ javascript
+// 定义一个混入对象
+var myMixin = {
+  created: function () {
+    this.hello()
+  },
+  methods: {
+    hello: function () {
+      console.log('hello from mixin!')
+    }
+  }
+}
+
+// 定义一个使用混入对象的组件
+var Component = Vue.extend({
+  mixins: [myMixin]
+})
+
+// 这样 myMixin 混入对象的所有options都被“混入”到 Component 组件中
+~~~
+> 关键字： <span style="font-size:26px">mixins</span>
+
+> 当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。
+
+# options中相同属性合并
+
+  1. options: data 在内部会进行递归合并，有同名属性时保留组件自身的。
+  2. 同名钩子函数将合并为一个数组，因此都将被调用。但是，混入对象的钩子函数会在组件自身钩子之前被调用。
+  3. 值为对象的选项，例如 methods、components 和 directives，将被合并为同一个对象。两个对象键名冲突时，保留组件自身的。（与options：data不同的地方是不会进行递归？不过也没法递归，因为没有嵌套对象）
+
+# 全局混入
+> 谨慎使用，一般可以用来为自定义options”混入“
+
+# 自定义选项合并策略
+> 暂时不学
 `
 
 var text20210121_01 = 
 `
-# test
+# 自定义指令
+* 有时候需要对普通 <span style="color: red">DOM 元素</span>进行<span style="color: red">底层操作</span>，这时候就会用到自定义指令
+
+# 全局自定义指令
+
+
+# 局部自定义指令
+
 `

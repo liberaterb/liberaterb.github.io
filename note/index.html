@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>INDEX</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.15.0/lib/theme-chalk/index.css">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/prism.css">
+    <link rel="stylesheet" href="../css/element-ui/index.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/prism.css">
     <style>
         .el-calendar-table .el-calendar-day {
             padding: 0;
@@ -35,8 +35,9 @@
             </el-calendar>
             <el-dialog title="ESC - CLOSE" :visible.sync="dialogVisible" width="950px" top="50px">
                 <el-tabs type="border-card">
-                    <el-tab-pane v-for="(item,index) in source" :label="source[0] === '# NULL' ? 'NULL' : romanNum[index + 1]">
-                        <vue-markdown class="result-html full-height"
+                    <el-tab-pane v-for="(item,index) in source"
+                        :label="source[0] === '# NULL' ? 'NULL' : romanNum[index + 1]">
+                        <vue-markdown class="result-html"
                             :watches="['show','html','breaks','linkify','emoji','typographer','toc']" :source="item"
                             :show="true" :html="true" :breaks="true" :linkify="true" :emoji="true" :typographer="true"
                             :toc="true" toc-id="toc">
@@ -50,14 +51,14 @@
 
     <!-- <script src="./components/clock.js"></script> -->
 
-    <script src="./js/vue@2.6.12.js"></script>
-    <script src="./js/element/index.js"></script>
-    <script src="./js/dayjs.min.js"></script>
-    <script src="./js/marked.js"></script>
-    <script src="./js/vue-markdown.js"></script>
-    <script src="./js/main.js"></script>
-    <script src="./js/prism.js"></script>
-    <script src="./js/purify.min.js"></script>
+    <script src="../js/vue@2.6.12.js"></script>
+    <script src="../js/element/index.js"></script>
+    <script src="../js/dayjs.min.js"></script>
+    <script src="../js/marked.js"></script>
+    <script src="../js/vue-markdown.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/prism.js"></script>
+    <script src="../js/purify.min.js"></script>
     <script src="2021-01.js"></script>
     <script>
         // ⅪⅫ 13-XIII、14-XIV、15-XV、16-XVI、17-XVII、18-XVIII、19-XIX、20-XX
@@ -116,10 +117,15 @@
         })
     </script>
     <style>
-        /* @font-face {
-            font-family: "JBM";
-            src: url('./JetBrainsMono-Medium.ttf');
-        } */
+        @font-face {
+            font-family: code;
+            src: url(fonts/JetBrainsMono-Medium.ttf) format("JetBrains Mono");
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
         body {
             overflow: hidden;
         }
@@ -128,23 +134,23 @@
             padding: 15px;
             /* background-color: #e9e8e8; */
             /* color: #000000; */
-            /* font-family: "consolas"; */
+            font-size: 15px;
+        }
+
+        code {
+            font-family: code !important;
         }
 
         .wrapper {
             margin: 50px 150px;
         }
 
-        .markdown {
+        /* .markdown {
             height: 700px;
             border: 3px solid #ebeef5;
             padding: 20px;
             overflow: auto;
-        }
-
-        .markdown li {
-            /* font-size: 18px; */
-        }
+        } */
 
         .calendar-cell-day {
             width: 30px;
@@ -159,6 +165,22 @@
 
         .result-html {
             border: none;
+        }
+
+        .el-tab-pane {
+            height: 660px;
+        }
+
+        ol {
+            font-size: 17px;
+        }
+
+        ul {
+            font-size: 17px;
+        }
+
+        .el-tabs__content {
+            overflow: auto;
         }
     </style>
 </body>
