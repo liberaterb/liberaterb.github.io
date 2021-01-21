@@ -33,13 +33,17 @@
                     </div>
                 </template>
             </el-calendar>
-            <el-dialog title="ESC - CLOSE" :visible.sync="dialogVisible" width="50%" top="50px">
+            <el-dialog title="ESC - CLOSE" :visible.sync="dialogVisible" width="60%" top="50px">
+                <el-tabs type="border-card">
+                    <el-tab-pane v-for="(item,index) in source" :label="romanNum[index + 1]">
+                        <vue-markdown class="result-html full-height"
+                            :watches="['show','html','breaks','linkify','emoji','typographer','toc']" :source="item"
+                            :show="true" :html="true" :breaks="true" :linkify="true" :emoji="true" :typographer="true"
+                            :toc="true" toc-id="toc">
+                        </vue-markdown>
+                    </el-tab-pane>
+                </el-tabs>
                 <!-- <div v-html="compiledMarkdown" class="markdown"></div> -->
-                <vue-markdown class="result-html full-height"
-                    :watches="['show','html','breaks','linkify','emoji','typographer','toc']" :source="source"
-                    :show="true" :html="true" :breaks="true" :linkify="true" :emoji="true"
-                    :typographer="true" :toc="true" @rendered="allRight" @toc-rendered="tocAllRight"
-                    toc-id="toc"></vue-markdown>
             </el-dialog>
         </div>
     </div>
@@ -56,6 +60,29 @@
     <script src="./js/purify.min.js"></script>
     <script src="2021-01.js"></script>
     <script>
+        // ⅪⅫ 13-XIII、14-XIV、15-XV、16-XVI、17-XVII、18-XVIII、19-XIX、20-XX
+        const romanNum = {
+            1: 'Ⅰ',
+            2: 'Ⅱ',
+            3: 'Ⅲ',
+            4: 'Ⅳ',
+            5: 'Ⅴ',
+            6: 'Ⅵ',
+            7: 'Ⅶ',
+            8: 'Ⅷ',
+            9: 'Ⅸ',
+            10: 'Ⅹ'
+        }
+        Object.getPrototypeOf(window).filter = function (data) {
+            let res = []
+            // item => { item.startsWith() }
+            for (const item in this) {
+                if (item.startsWith('text' + dayjs(data.day).format('YYYYMMDD') + '_')) {
+                    res.push(window[item])
+                }
+            }
+            return res
+        }
         Vue.use(VueMarkdown);
         let app = new Vue({
             el: '#app',
@@ -64,7 +91,7 @@
                     todayLabel: '',
                     input: '',
                     dialogVisible: false,
-                    source: ""
+                    source: []
                 }
             },
             created() {
@@ -75,18 +102,13 @@
             },
             methods: {
                 handleSelectDate(data) {
-                    this.source = window['text' + dayjs(data.day).format('YYYYMMDD')] ?? '# NULL'
+                    this.source = window.filter(data)
+                    // this.source[0] = window['text' + dayjs(data.day).format('YYYYMMDD') + '_00'] ?? '# NULL'
                     this.dialogVisible = true
                 },
                 hasText(time) {
-                    return window['text' + time] !== undefined
+                    // return window.filter(item=>item.startsWith('text' + time)).length > 0
                 },
-                allRight: function (htmlStr) {
-                    // console.log("markdown is parsed !");
-                },
-                tocAllRight: function (tocHtmlStr) {
-                    // console.log("toc is parsed :", tocHtmlStr);
-                }
             },
             computed: {
                 compiledMarkdown() {
@@ -102,9 +124,9 @@
         } */
 
         pre {
-            padding: 10px;
-            background-color: #e9e8e8;
-            color: #000000;
+            padding: 15px;
+            /* background-color: #e9e8e8; */
+            /* color: #000000; */
             /* font-family: "consolas"; */
         }
 
@@ -120,7 +142,7 @@
         }
 
         .markdown li {
-            font-size: 18px;
+            /* font-size: 18px; */
         }
 
         .calendar-cell-day {
@@ -132,6 +154,10 @@
 
         .has-text {
             background-color: #57f1ff83;
+        }
+
+        .result-html {
+            border: none;
         }
     </style>
 </body>
