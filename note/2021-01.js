@@ -158,4 +158,5 @@ absolute <span style="color: #d73a49">脱离</span>常规流 使用 top left rig
 
 fixed <span style="color: #d73a49">脱离</span>常规流 使用 top left right bottom 以窗口为参考点进行定位 ，当有滚动条时，对象不会随着滚动
 
+sticky 对象在常态时遵循常规流。它就像是 relative 和 fixed 的合体，当在屏幕中时按常规流排版，当卷动到屏幕外时则表现如fixed。该属性的表现是现实中你见到的吸附效果。
 `
