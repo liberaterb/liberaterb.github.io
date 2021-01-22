@@ -143,3 +143,19 @@ vm.$set(vm.items, indexOfItem, newValue)
 
 vm.items.splice(newLength)
 `
+
+var text20210122_01 = 
+`
+css position
+
+常规流
+
+static <span style="color: #2ea44f">遵循</span>常规流 top left right bottom 不会起作用
+
+relative <span style="color: #2ea44f">遵循</span>常规流 参照常规流的位置通过 top left right bottom 属性进行偏移不影响常规流的任何元素
+
+absolute <span style="color: #d73a49">脱离</span>常规流 使用 top left right bottom 进行绝对定位，盒子的偏移不影响常规流的任何元素 其margin不与其他任何margin折叠
+
+fixed <span style="color: #d73a49">脱离</span>常规流 使用 top left right bottom 以窗口为参考点进行定位 ，当有滚动条时，对象不会随着滚动
+
+`
