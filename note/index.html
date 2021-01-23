@@ -4,127 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>INDEX</title>
-    <link rel="stylesheet" href="../css/element-ui/index.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/prism.css">
-    <style>
-        .el-calendar-table .el-calendar-day {
-            padding: 0;
-        }
-
-        .el-dialog__headerbtn {
-            font-size: 30px;
-            top: 15px;
-        }
-
-        @font-face {
-            font-family: code;
-            src: url(fonts/JetBrainsMono-Medium.ttf) format("JetBrains Mono");
-        }
-
-        h1 {
-            font-size: 24px;
-        }
-
-        body {
-            overflow: hidden;
-        }
-
-        pre {
-            padding: 15px;
-            /* background-color: #e9e8e8; */
-            /* color: #000000; */
-            font-size: 15px;
-        }
-
-        code {
-            font-family: code !important;
-        }
-
-        .wrapper {
-            margin: 50px 150px;
-        }
-
-        /* .markdown {
-            height: 700px;
-            border: 3px solid #ebeef5;
-            padding: 20px;
-            overflow: auto;
-        } */
-
-        .calendar-cell-day {
-            width: 30px;
-            padding: 5px;
-            text-align: center;
-            vertical-align: middle;
-        }
-
-        .has-text {
-            background-color: #57f1ff83;
-        }
-
-        .result-html {
-            border: none;
-        }
-
-        .el-tab-pane {
-            height: 660px;
-        }
-
-        ol {
-            font-size: 17px;
-        }
-
-        ul {
-            font-size: 17px;
-        }
-
-        .el-tabs__content {
-            overflow: auto;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="app" class="wrapper">
-        <h2 v-text="todayLabel"></h2>
-        <div style="border: 5px solid #ebeef5;">
-            <!-- <clock></clock> -->
-            <el-calendar>
-                <template slot="dateCell" slot-scope="{date, data}">
-                    <div @click="handleSelectDate(data)" style="height: 100%;width: 100%;padding: 5px;">
-                        <div :class="{'calendar-cell-day': true, 'has-text': hasText(dayjs(date).format('YYYYMMDD'))}"
-                            v-text="dayjs(date).format('DD')">
-                        </div>
-                    </div>
-                </template>
-            </el-calendar>
-            <el-dialog title="ESC - CLOSE" :visible.sync="dialogVisible" width="950px" top="50px">
-                <el-tabs type="border-card" :value="activeName">
-                    <el-tab-pane v-for="(item,index) in source"
-                        :label="source[0] === '# NULL' ? 'NULL' : romanNum[index + 1]" :name="index">
-                        <vue-markdown class="result-html"
-                            :watches="['show','html','breaks','linkify','emoji','typographer','toc']" :source="item"
-                            :show="true" :html="true" :breaks="true" :linkify="true" :emoji="true" :typographer="true"
-                            :toc="true" toc-id="toc">
-                        </vue-markdown>
-                    </el-tab-pane>
-                </el-tabs>
-                <!-- <div v-html="compiledMarkdown" class="markdown"></div> -->
-            </el-dialog>
-        </div>
-    </div>
-
-    <!-- <script src="./components/clock.js"></script> -->
-
-    <script src="../js/vue@2.6.12.js"></script>
-    <script src="../js/element/index.js"></script>
-    <script src="../js/dayjs.min.js"></script>
-    <script src="../js/marked.js"></script>
-    <script src="../js/vue-markdown.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/prism.js"></script>
-    <script src="../js/purify.min.js"></script>
     <!-- TODO 导入日志js -->
     <script src="./2021-01.js"></script>
     <script src="./20210122.js"></script>
@@ -501,6 +380,127 @@
     <script src="./js-note/2021/12/29.js"></script>
     <script src="./js-note/2021/12/30.js"></script>
     <script src="./js-note/2021/12/31.js"></script>
+    <link rel="stylesheet" href="../css/element-ui/index.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/prism.css">
+    <style>
+        .el-calendar-table .el-calendar-day {
+            padding: 0;
+        }
+
+        .el-dialog__headerbtn {
+            font-size: 30px;
+            top: 15px;
+        }
+
+        @font-face {
+            font-family: code;
+            src: url(fonts/JetBrainsMono-Medium.ttf) format("JetBrains Mono");
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        pre {
+            padding: 15px;
+            /* background-color: #e9e8e8; */
+            /* color: #000000; */
+            font-size: 15px;
+        }
+
+        code {
+            font-family: code !important;
+        }
+
+        .wrapper {
+            margin: 50px 150px;
+        }
+
+        /* .markdown {
+            height: 700px;
+            border: 3px solid #ebeef5;
+            padding: 20px;
+            overflow: auto;
+        } */
+
+        .calendar-cell-day {
+            width: 30px;
+            padding: 5px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .has-text {
+            background-color: #57f1ff83;
+        }
+
+        .result-html {
+            border: none;
+        }
+
+        .el-tab-pane {
+            height: 660px;
+        }
+
+        ol {
+            font-size: 17px;
+        }
+
+        ul {
+            font-size: 17px;
+        }
+
+        .el-tabs__content {
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="wrapper">
+        <h2 v-text="todayLabel"></h2>
+        <div style="border: 5px solid #ebeef5;">
+            <!-- <clock></clock> -->
+            <el-calendar>
+                <template slot="dateCell" slot-scope="{date, data}">
+                    <div @click="handleSelectDate(data)" style="height: 100%;width: 100%;padding: 5px;">
+                        <div :class="{'calendar-cell-day': true, 'has-text': hasText(dayjs(date).format('YYYYMMDD'))}"
+                            v-text="dayjs(date).format('DD')">
+                        </div>
+                    </div>
+                </template>
+            </el-calendar>
+            <el-dialog title="ESC - CLOSE" :visible.sync="dialogVisible" width="950px" top="50px">
+                <el-tabs type="border-card" v-model="activeName">
+                    <el-tab-pane v-for="(item,index) in source"
+                        :label="source[0] === '# NULL' ? 'NULL' : romanNum[index + 1]" :name="source[0] === '# NULL' ? 'NULL' : romanNum[index + 1]">
+                        <vue-markdown class="result-html"
+                            :watches="['show','html','breaks','linkify','emoji','typographer','toc']" :source="item"
+                            :show="true" :html="true" :breaks="true" :linkify="true" :emoji="true" :typographer="true"
+                            :toc="true" toc-id="toc">
+                        </vue-markdown>
+                    </el-tab-pane>
+                </el-tabs>
+                <!-- <div v-html="compiledMarkdown" class="markdown"></div> -->
+            </el-dialog>
+        </div>
+    </div>
+
+    <!-- <script src="./components/clock.js"></script> -->
+
+    <script src="../js/vue@2.6.12.js"></script>
+    <script src="../js/element/index.js"></script>
+    <script src="../js/dayjs.min.js"></script>
+    <script src="../js/marked.js"></script>
+    <script src="../js/vue-markdown.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/prism.js"></script>
+    <script src="../js/purify.min.js"></script>
     <script>
         // ⅪⅫ 13-XIII、14-XIV、15-XV、16-XVI、17-XVII、18-XVIII、19-XIX、20-XX
         const romanNum = {
@@ -548,7 +548,7 @@
                     const array = window.filter(data.day)
                     this.source = array.length > 0 ? array : ['# NULL']
                     // this.source[0] = window['text' + dayjs(data.day).format('YYYYMMDD') + '_00'] ?? '# NULL'
-                    this.activeName = 0
+                    this.activeName = array.length > 0 ? 'Ⅰ' : 'NULL'
                     this.dialogVisible = true
                 },
                 hasText(time) {
