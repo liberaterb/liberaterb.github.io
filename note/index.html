@@ -100,9 +100,9 @@
                 </template>
             </el-calendar>
             <el-dialog title="ESC - CLOSE" :visible.sync="dialogVisible" width="950px" top="50px">
-                <el-tabs type="border-card">
+                <el-tabs type="border-card" :value="activeName">
                     <el-tab-pane v-for="(item,index) in source"
-                        :label="source[0] === '# NULL' ? 'NULL' : romanNum[index + 1]">
+                        :label="source[0] === '# NULL' ? 'NULL' : romanNum[index + 1]" :name="index">
                         <vue-markdown class="result-html"
                             :watches="['show','html','breaks','linkify','emoji','typographer','toc']" :source="item"
                             :show="true" :html="true" :breaks="true" :linkify="true" :emoji="true" :typographer="true"
@@ -159,7 +159,8 @@
                     todayLabel: '',
                     input: '',
                     dialogVisible: false,
-                    source: []
+                    source: [],
+                    activeName: ''
                 }
             },
             created() {
@@ -173,6 +174,7 @@
                     const array = window.filter(data.day)
                     this.source = array.length > 0 ? array : ['# NULL']
                     // this.source[0] = window['text' + dayjs(data.day).format('YYYYMMDD') + '_00'] ?? '# NULL'
+                    this.activeName = 0
                     this.dialogVisible = true
                 },
                 hasText(time) {
