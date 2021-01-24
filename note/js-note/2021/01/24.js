@@ -13,4 +13,5 @@ var text20210124_00 =
 ### watch 与传统的watch一样
 ### 生命周期函数 无created beforeCreated 其他在传统的前面加个on
 ### props 参数带个props
+### composition-api中provide inject实现父子组件传值时，父组件可以影响子组件，子组件可以影响父组件
  `
