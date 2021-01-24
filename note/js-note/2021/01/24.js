@@ -11,5 +11,6 @@ var text20210124_00 =
 ### readonly
 ### watchEffect 监听方法体内的响应式数据，初始化也会执行一次
 ### watch 与传统的watch一样
-
-`
+### 生命周期函数 无created beforeCreated 其他在传统的前面加个on
+### props 参数带个props
+ `
