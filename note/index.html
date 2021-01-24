@@ -384,6 +384,20 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/prism.css">
     <style>
+
+        #todayLabel{
+            color: #41b883;
+        }
+
+        .el-calendar__title{
+            color: #41b883;
+            font-size: 20px;
+        }
+
+        body {
+            font-family: code !important;
+        }
+
         .el-calendar-table .el-calendar-day {
             padding: 0;
         }
@@ -392,6 +406,10 @@
             font-size: 30px;
             top: 15px;
         }
+        
+        .el-dialog__body {
+            font-size: 17px;
+        }
 
         @font-face {
             font-family: code;
@@ -399,18 +417,36 @@
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 30px;
+        }
+
+        h2 {
+            font-size: 25px;
+        }
+
+        h3 {
+            font-size: 22px;
         }
 
         body {
             overflow: hidden;
         }
 
+        blockquote {
+            padding: 10px;
+            border-left: 5px solid #41b883;
+        }
+
         pre {
             padding: 15px;
-            /* background-color: #e9e8e8; */
+            background-color: #f8f8f8;
             /* color: #000000; */
+            border: 2px solid #41b883;
             font-size: 15px;
+        }
+
+        .toc-anchor-link{
+            color: #41b883;
         }
 
         code {
@@ -436,7 +472,15 @@
         }
 
         .has-text {
-            background-color: #57f1ff83;
+            background-color:#41b8836c;
+        }
+
+        .el-dialog__close{
+            color: #41b883 !important;
+        }
+
+        .el-dialog__title{
+            color: #41b883 !important;
         }
 
         .result-html {
@@ -447,12 +491,13 @@
             height: 660px;
         }
 
-        ol {
+        ul ol {
             font-size: 17px;
+            padding-inline-start: 30px;
         }
 
-        ul {
-            font-size: 17px;
+        li::marker {
+            color: #41b883;
         }
 
         .el-tabs__content {
@@ -463,8 +508,8 @@
 
 <body>
     <div id="app" class="wrapper">
-        <h2 v-text="todayLabel"></h2>
-        <div style="border: 5px solid #ebeef5;">
+        <h2 v-text="todayLabel" id="todayLabel"></h2>
+        <div style="border: 5px solid #41b883a2;">
             <!-- <clock></clock> -->
             <el-calendar>
                 <template slot="dateCell" slot-scope="{date, data}">
@@ -478,7 +523,8 @@
             <el-dialog title="ESC - CLOSE" :visible.sync="dialogVisible" width="950px" top="50px">
                 <el-tabs type="border-card" v-model="activeName">
                     <el-tab-pane v-for="(item,index) in source"
-                        :label="source[0] === '# NULL' ? 'NULL' : romanNum[index + 1]" :name="source[0] === '# NULL' ? 'NULL' : romanNum[index + 1]">
+                        :label="source[0] === '# NULL' ? 'NULL' : romanNum[index + 1]"
+                        :name="source[0] === '# NULL' ? 'NULL' : romanNum[index + 1]">
                         <vue-markdown class="result-html"
                             :watches="['show','html','breaks','linkify','emoji','typographer','toc']" :source="item"
                             :show="true" :html="true" :breaks="true" :linkify="true" :emoji="true" :typographer="true"
@@ -543,9 +589,21 @@
             mounted() {
 
             },
+            async updated() {
+                await this.$nextTick()
+                document.querySelectorAll('p').forEach(item => {
+                    const text = item.innerHTML;
+                    if (!text.startsWith('&nbsp;')) {
+                        item.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + text
+                    }
+                })
+            },
             methods: {
                 handleSelectDate(data) {
                     const array = window.filter(data.day)
+                    /* array.forEach(element => {
+                        element.replaceAll('<p>','<p>&nbsp;&nbsp;')
+                    }); */
                     this.source = array.length > 0 ? array : ['# NULL']
                     // this.source[0] = window['text' + dayjs(data.day).format('YYYYMMDD') + '_00'] ?? '# NULL'
                     this.activeName = array.length > 0 ? 'Ⅰ' : 'NULL'
