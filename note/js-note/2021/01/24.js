@@ -18,28 +18,65 @@ var text20210124_00 =
 
  var text20210124_01 = 
 `
-# 测试h1
-## 测试h2
-### 测试h3
-这是一段测试文字。。。这是一段测试文字。。。这是一段测试文字。。。这是一段测试文字。。。这是一段测试文字。。。这是一段测试文字。。。这是一段测试文字。。。这是一段测试文字。。。这是一段测试文字。。。这是一段测试文字。。。这是一段测试文字。。。这是一段测试文字。。。
-> 这是一段测试引用。。这是一段测试引用。。这是一段测试引用。。这是一段测试引用。。这是一段测试引用。。这是一段测试引用。。
-~~~ javascript
-let a = {
-    name: 'liben',
-    age: 19
+# Vue TypeScript
+## string,number,boolean 像以前一样定义，直接赋值即可，vue-ts会自动检测类型，如果付给不同的值，ts会提示编译错误（如 Type 'number' is not assignable to type 'string'）
+## object 定义一个interface规范，然后as实现它
+~~~ typescript
+// 先在vue实例外定义接口（规范类型）
+interface Iform {
+  xm: string;
+  age: number;
 }
-console.log(a.name)
-console.log(a.age)
+
+// 再在data option中定义类实现这个接口
+export default defineComponent({
+  data () {
+    return {
+      form: {
+        xm: 'lb',
+        age: 20
+      } as Iform
+    }
+  },
+
+// 或者以下方式也行
+interface Iform {
+  xm: string;
+  age: number;
+}
+
+const form: Iform = {
+  xm: 'lb',
+  age: 20
+}
+
+export default defineComponent({
+  data () {
+    return {
+      form
+    }
+  },
 ~~~
-* 测试用1
-* 测试用2
-* 测试用3
-* 测试用4
 
-1. 测试用1
-2. 测试用2
-3. 测试用3
-4. 测试用4
+## Array 
+~~~ typescript
+let empList: Array<string>
+export default defineComponent({
+  name: 'Home',
+  data () {
+    return {
+      empList
+    }
+  },
 
-
+// 第二种方式
+let empList: string[]
+export default defineComponent({
+  name: 'Home',
+  data () {
+    return {
+      empList
+    }
+  },
+~~~
 `
