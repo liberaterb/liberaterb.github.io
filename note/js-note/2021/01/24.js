@@ -11,7 +11,5 @@ var text20210124_00 =
 ### readonly
 ### watchEffect 监听方法体内的响应式数据，初始化也会执行一次
 ### watch 与传统的watch一样
-> watch只能监听reactive定义的响应式对象，而watchEffect可以精确到对象里的属性
-
 
 `
