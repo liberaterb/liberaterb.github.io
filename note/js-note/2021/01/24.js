@@ -83,6 +83,7 @@ export default defineComponent({
 
   var text20210124_02 = 
 `
+~~~ typescript
 // 布尔值
 let isDone: boolean = true
 
@@ -125,4 +126,5 @@ function printVal(val: string): void {
     alert(val)
 }
 // 但，声明一个void类型的变量并没有什么大用场，只能赋值undefined和null
+~~~
 `
