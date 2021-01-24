@@ -80,3 +80,49 @@ export default defineComponent({
   },
 ~~~
 `
+
+  var text20210124_02 = 
+`
+// 布尔值
+let isDone: boolean = true
+
+// 数字
+let dec: number = 6
+
+// 字符串
+let xm: string = "bob"
+
+// 数组
+let list: number[] = [1, 2, 3]
+let list2: Array<number> = [1, 2, 3]
+
+//元组 Tuple
+// 表示一个已知元素数量和类型的数组
+let x: [string, number] = ['hello', 1]
+
+// 枚举
+enum Color { Red, Green, Blue }
+let c: Color = Color.Red
+
+// 默认下：元素编号从0开始。也可以手动指定编号,比如手动指定从1开始
+enum Color2 { Red = 1, Green, Blue }
+let c2: Color2 = Color2.Green
+
+// 或者，全部手动指定
+enum Color3 { Red = 1, Green = 3, Blue = 5 }
+let c3: Color3 = Color3.Blue
+
+// any类型： 不清楚类型，不要进行编译阶段的类型检查
+let notSure: any = 4
+notSure = 'a string value'
+notSure = false
+
+// 再比如，定义一个any类型的数组，可以存任何类型的值
+let list4: any[] = [1, true, 'str value']
+
+// 空置：void类型与any类型相反，它没有表示任何类型，比如代表一个函数没有返回值
+function printVal(val: string): void {
+    alert(val)
+}
+// 但，声明一个void类型的变量并没有什么大用场，只能赋值undefined和null
+`
