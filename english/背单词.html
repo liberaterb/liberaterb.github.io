@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背单词</title>
+
+    <style>
+        #app{
+            width: 50vw;
+            display: flex;
+            justify-content: center;
+        }
+        .chinese {
+            background-color: black;
+            color: black;
+            margin-left: 10px;
+            padding-left: 10px;
+        }
+
+        .chinese:hover {
+            transition: all .13s linear;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <tr v-for="(item,index) in list" :key="index">
+                <td>{{item.e}}</td>
+                <td>
+                    <div class="chinese">{{item.c}}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                list: [
+                    {
+                        e: 'curve',
+                        c: '曲线'
+                    },
+                    {
+                        e: 'several',
+                        c: '几个'
+                    },
+                    {
+                        e: 'gradually',
+                        c: ''
+                    },
+                    {
+                        e: 'duration',
+                        c: ''
+                    },
+                    {
+                        e: 'transition',
+                        c: ''
+                    },
+                    {
+                        e: 'separately',
+                        c: ''
+                    },
+                    {
+                        e: 'stock',
+                        c: ''
+                    },
+                    {
+                        e: 'fresh',
+                        c: ''
+                    },
+                    {
+                        e: 'complex',
+                        c: ''
+                    },
+                    {
+                        e: 'compatible',
+                        c: ''
+                    },
+                    {
+                        e: 'inspiration',
+                        c: ''
+                    },
+                    {
+                        e: 'rounded',
+                        c: ''
+                    },
+                    {
+                        e: 'corner',
+                        c: ''
+                    },
+                    {
+                        e: 'stand for',
+                        c: ''
+                    },
+                    {
+                        e: 'cascading',
+                        c: ''
+                    },
+                    {
+                        e: 'all at once',
+                        c: ''
+                    },
+                    {
+                        e: 'variation',
+                        c: '变化'
+                    },
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>
